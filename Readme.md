@@ -116,3 +116,116 @@ ALTER TABLE employee
 alter table employee 
   drop constraint unique_employee_email;
 ```
+
+## 45-3 SELECT Basics: Sorting & Aliases
+
+## USAGE OF SELECT 
+
+- The SELECT statement is used to retrieve data from one or more tables and can be customized with conditions, sorting, and other clauses.
+
+![alt text](image-2.png)
+
+- make a student table 
+
+```sql
+create table students (
+  student_id serial PRIMARY KEY,
+  first_name varchar(50) not null,
+  last_name varchar(50) not null,
+  age int,
+  grade char(2),
+  course varchar(50),
+  email varchar(100) unique, 
+  dob date,
+  blood_group varchar(5),
+  country varchar(50)
+)
+```
+- Insert data 
+
+```sql
+INSERT INTO students 
+(first_name, last_name, age, grade, course, email, dob, blood_group, country) VALUES
+('Dustin', 'Haas', 22, 'E', 'Chemistry', 'dustin.haas1@example.com', '2001-03-08', 'B-', 'Gibraltar'),
+('Christine', 'Ramirez', 25, 'B', 'Economics', 'christine.ramirez2@example.com', '2003-12-13', 'O+', 'Nicaragua'),
+('Kaitlyn', 'Mitchell', 20, 'B', 'History', 'kaitlyn.mitchell3@example.com', '2002-05-10', 'AB+', 'Dominican Republic'),
+('Allen', 'Jones', 20, 'A', 'Physics', 'allen.jones4@example.com', '2004-08-29', 'O+', 'Central African Republic'),
+('Michael', 'Fleming', 22, 'F', 'History', 'michael.fleming5@example.com', '2001-01-24', 'B-', 'Wallis and Futuna'),
+('Kelly', 'Lee', 21, 'D', 'Chemistry', 'kelly.lee6@example.com', '2003-06-06', 'B+', 'Monaco'),
+('Francis', 'Gibson', 24, 'A', 'Physics', 'francis.gibson7@example.com', '2000-07-19', 'A-', 'Sierra Leone'),
+('Abigail', 'Paul', 19, 'D', 'Economics', 'abigail.paul8@example.com', '2004-07-14', 'O-', 'New Zealand'),
+('Zachary', 'Evans', 23, 'C', 'Math', 'zachary.evans9@example.com', '2001-11-03', 'AB-', 'Brazil'),
+('Laura', 'Cooper', 20, 'B', 'Biology', 'laura.cooper10@example.com', '2005-04-17', 'O+', 'Kenya'),
+('Benjamin', 'Scott', 22, 'A', 'CS', 'benjamin.scott11@example.com', '2002-01-21', 'A+', 'Germany'),
+('Samantha', 'Brooks', 19, 'C', 'Economics', 'samantha.brooks12@example.com', '2004-10-11', 'B-', 'Japan'),
+('Ethan', 'Morris', 21, 'F', 'History', 'ethan.morris13@example.com', '2003-12-09', 'O-', 'Bangladesh'),
+('Victoria', 'Bailey', 25, 'B', 'Math', 'victoria.bailey14@example.com', '2000-06-28', 'AB+', 'Canada'),
+('Daniel', 'Clark', 23, 'D', 'Biology', 'daniel.clark15@example.com', '2001-08-16', 'A-', 'India'),
+('Sofia', 'Turner', 20, 'B', 'CS', 'sofia.turner16@example.com', '2005-07-11', 'O+', 'Italy'),
+('Jackson', 'Reed', 24, 'C', 'Physics', 'jackson.reed17@example.com', '2000-09-05', 'B+', 'Australia'),
+('Liam', 'Walker', 21, 'A', 'Math', 'liam.walker18@example.com', '2002-02-23', 'O-', 'USA'),
+('Olivia', 'Parker', 19, 'D', 'Biology', 'olivia.parker19@example.com', '2006-03-15', 'A+', 'Mexico'),
+('Noah', 'Hughes', 23, 'B', 'Economics', 'noah.hughes20@example.com', '2001-10-20', 'AB-', 'France'),
+('Ava', 'Ward', 22, 'F', 'History', 'ava.ward21@example.com', '2003-11-30', 'O+', 'Spain'),
+('Mason', 'Carter', 20, 'C', 'Chemistry', 'mason.carter22@example.com', '2005-05-18', 'B-', 'South Korea'),
+('Isabella', 'Wright', 21, 'B', 'CS', 'isabella.wright23@example.com', '2004-04-25', 'O-', 'China'),
+('James', 'Green', 25, 'A', 'Math', 'james.green24@example.com', '2000-02-08', 'A-', 'Norway'),
+('Mia', 'Adams', 23, 'D', 'Biology', 'mia.adams25@example.com', '2001-09-27', 'B+', 'Argentina'),
+('Lucas', 'Nelson', 19, 'B', 'Physics', 'lucas.nelson26@example.com', '2006-01-14', 'AB+', 'Egypt'),
+('Amelia', 'Baker', 22, 'C', 'Economics', 'amelia.baker27@example.com', '2003-12-02', 'O+', 'Russia'),
+('Elijah', 'Hill', 20, 'F', 'History', 'elijah.hill28@example.com', '2005-03-22', 'O-', 'Greece'),
+('Harper', 'Lopez', 21, 'B', 'CS', 'harper.lopez29@example.com', '2004-05-10', 'AB-', 'Portugal'),
+('William', 'Allen', 24, 'A', 'Chemistry', 'william.allen30@example.com', '2000-08-03', 'A+', 'Turkey');
+dsd
+```
+
+- show all data from the table 
+
+```sql 
+select * from students;
+```
+
+- show the first name 
+
+```sql
+select first_name from students;
+```
+
+- show first name and age 
+
+```sql
+select first_name, age from students;
+```
+
+- using column alias 
+
+```sql 
+select first_name as firstName from students;
+```
+
+```sql 
+select first_name as "First Name" from students;
+```
+- remember we will use  "" double quotation while we are using for column single '' quotation for character 
+
+```sql
+select first_name as "First Name", age as "User Age" from students;
+```
+
+```sql 
+select first_name, blood_group, country, age from students;
+```
+
+### SELECT WITH ORDER BY 
+- lets order by desc order 
+```sql
+select first_name, blood_group, country, age from students order by age desc;
+```
+- order by asc order 
+
+```sql
+select first_name, blood_group, country, age from students order by age asc;
+```
+
+### SELECT WITH DISTINCT
+
