@@ -441,3 +441,29 @@ SELECT length(first_name) as "first_name_length" FROM students order by first_na
 ```
 
 ##### Aggregate (`avg, max, min, sum, count`)
+
+![alt text](image-4.png)
+
+- aggregate will take all the values and give summarized data after processing. wil run for each row and will give us result
+- aggregate function runs against whole table 
+
+```sql 
+select avg(age) as avg_age from students;
+```
+```sql 
+select sum(age) from students;
+```
+```sql 
+select count(first_name) from students;
+```
+```sql 
+select count(*) from students;
+```
+
+```sql 
+select max(age) as max_age from students;
+```
+
+```sql 
+select min(age) as min_age from students;
+```
