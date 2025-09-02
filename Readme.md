@@ -60,7 +60,7 @@ alter table employee
   rename column name to user_name;
 ```
 
-- modify a constrain 
+- modify a data type 
 
 ```sql
 alter table employee 
@@ -79,4 +79,40 @@ alter table employee
 ```sql
 alter table employee 
   alter column email drop not null
+```
+
+## 45-2 ALTER Default Values & Column Constraints
+- set default value 
+
+```sql
+alter table employee
+  alter column email set default 'test@gmail.com'
+```
+- remove default 
+
+```sql
+alter table employee
+  alter column email drop default
+```
+
+- add table level constrain 
+
+```sql
+alter table employee add constraint unique_employee_email unique(email)
+```
+```sql 
+alter table employee 
+  add constraint pk_employee_id primary key(id);
+```
+
+```sql
+ALTER TABLE employee 
+  ADD CONSTRAINT unique_employee_email UNIQUE (email, username);
+```
+
+- drop table level constraints 
+
+```sql 
+alter table employee 
+  drop constraint unique_employee_email;
 ```
